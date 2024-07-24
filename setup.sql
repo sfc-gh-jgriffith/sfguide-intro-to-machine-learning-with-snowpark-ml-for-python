@@ -15,3 +15,13 @@ CREATE STAGE IF NOT EXISTS ML_HOL_DB.ML_HOL_SCHEMA.DIAMONDS_ASSETS
     URL = 's3://sfquickstarts/intro-to-machine-learning-with-snowpark-ml-for-python/diamonds.csv';
 
 LS @DIAMONDS_ASSETS;
+
+CREATE OR REPLACE API INTEGRATION git_api_integration
+  API_PROVIDER = git_https_api
+  API_ALLOWED_PREFIXES = ('https://github.com/sfc-gh-jgriffith')
+  ENABLED = TRUE;
+
+
+CREATE OR REPLACE GIT REPOSITORY ML_HOL
+  API_INTEGRATION = git_api_integration
+  ORIGIN = 'https://github.com/sfc-gh-jgriffith/sfguide-intro-to-machine-learning-with-snowpark-ml-for-python.git';
